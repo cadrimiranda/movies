@@ -1,60 +1,97 @@
 import {
   Box,
-  Modal,
-  Spinner,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
+  SimpleGrid,
+  GridItem,
+  Flex,
+  Image,
+  Divider,
+  Text,
 } from "@chakra-ui/react";
-import { forwardRef, useImperativeHandle, useState, Ref } from "react";
+import { StarIcon } from "@chakra-ui/icons";
 import { MoviePlayingResponse } from "../types/global";
+import useGetMoviewReview from "../hooks/useGetMoviewReviews";
+import Review from "./Review";
 
 type MovieDetailsType = {
-  movie: MoviePlayingResponse | null;
-  handleCloseModal: () => void;
+  movie: MoviePlayingResponse;
 };
 
-export type ModalRelf = {
-  visible: boolean;
-  onOpenModal: () => void;
+const MovieDetails = ({ movie }: MovieDetailsType) => {
+  const { data, loadingComments } = useGetMoviewReview(movie.id);
+  const normalize = ((movie.vote_average - 0) / (10 - 0)) * 5;
+
+  return (
+    <Box>
+      <SimpleGrid columns={5}>
+        <GridItem colSpan={2}>
+          <Flex align="center" justify="center">
+            <Image
+              m={3}
+              height="500px"
+              width="auto"
+              loading="lazy"
+              src={movie.poster_path}
+              alt={movie.title}
+              title={movie.overview}
+            />
+          </Flex>
+        </GridItem>
+        <GridItem colSpan={3}>
+          <Text
+            mt={1}
+            color="gray.700"
+            fontWeight="bold"
+            as="h1"
+            fontSize="2xl"
+            lineHeight="tight"
+            title={movie.title}
+            wordBreak="break-word"
+            mb={4}
+          >
+            {movie.title}
+          </Text>
+
+          <Box display="flex" mb={2} alignItems="center">
+            {Array(5)
+              .fill("")
+              .map((_, i) => (
+                <StarIcon
+                  fontSize="l"
+                  key={i}
+                  color={i < normalize ? "yellow.300" : "gray.300"}
+                />
+              ))}
+            <Text
+              color="gray.500"
+              letterSpacing="wide"
+              fontSize="l"
+              textTransform="uppercase"
+              ml="2"
+            >
+              ({movie.vote_average}) &bull; {movie.vote_count} reviews
+            </Text>
+          </Box>
+          <Text
+            mt={1}
+            textAlign="justify"
+            as="p"
+            fontSize="xl"
+            lineHeight="tight"
+            title={movie.title}
+          >
+            {movie.overview}
+          </Text>
+          <Divider mb={3} mt={5} />
+          <Box pr={3} maxHeight="35vh" overflow="scroll">
+            <Text as="h2">Comments &bull; ({data?.results.length || 0})</Text>
+            {data?.results.map((author) => (
+              <Review author={author} />
+            ))}
+          </Box>
+        </GridItem>
+      </SimpleGrid>
+    </Box>
+  );
 };
-
-const MovieDetails = forwardRef(
-  ({ movie, handleCloseModal }: MovieDetailsType, ref: Ref<ModalRelf>) => {
-    const [visible, setVisible] = useState<boolean>(false);
-
-    const onOpenModal = () => {
-      console.log("open modal");
-      setVisible(true);
-    };
-
-    const onCloseModal = () => {
-      setVisible(false);
-      handleCloseModal();
-    };
-
-    useImperativeHandle(ref, () => ({
-      visible,
-      onOpenModal,
-    }));
-
-    return (
-      <Modal size="6xl" isCentered isOpen={visible} onClose={onCloseModal}>
-        <ModalOverlay />
-        <ModalContent width="75vw">
-          <ModalHeader>
-            {movie ? <Box>{movie.title}</Box> : <Spinner />}
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            {movie ? <Box>{movie.title}</Box> : <Spinner />}
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    );
-  }
-);
 
 export default MovieDetails;

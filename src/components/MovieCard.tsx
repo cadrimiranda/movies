@@ -12,11 +12,11 @@ type MovieCardTypes = {
 const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {
   const { popularPoster } = useGetMovieImage(movie.id);
 
-  const normalize = ((movie.vote_average - 1) / (10 - 1)) * 5;
+  const normalize = ((movie.vote_average - 0) / (10 - 0)) * 5;
 
   return (
     <Box
-      onClick={() => handleClickMovie(movie)}
+      onClick={() => handleClickMovie({ ...movie, poster_path: popularPoster })}
       position="relative"
       cursor="pointer"
       height="400px"
@@ -49,14 +49,14 @@ const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {
         />
       </Flex>
 
-      <Box display="flex" alignItems="baseline">
+      <Box display="flex" mt={4} alignItems="center">
         {Array(5)
           .fill("")
           .map((_, i) => (
             <StarIcon
               fontSize="xs"
               key={i}
-              color={i < normalize ? "teal.500" : "gray.300"}
+              color={i < normalize ? "yellow.300" : "gray.300"}
             />
           ))}
         <Box
@@ -66,7 +66,6 @@ const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {
           fontSize="xs"
           textTransform="uppercase"
           ml="2"
-          mt={4}
         >
           ({movie.vote_average}) &bull; {movie.vote_count} reviews
         </Box>

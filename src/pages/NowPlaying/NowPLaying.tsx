@@ -7,7 +7,7 @@ import {
 } from "../../types/global";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import MovieCard from "../../components/MovieCard";
-import MovieDetails, { ModalRelf } from "../../components/MovieDetails";
+import MovieDetails, { ModalRelf } from "../../components/ModalMovieDetails";
 
 const NowPlaying = () => {
   const {
