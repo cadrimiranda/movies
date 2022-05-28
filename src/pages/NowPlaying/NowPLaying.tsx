@@ -20,7 +20,16 @@ const NowPlaying = () => {
     return <Spinner />;
   }
   return (
-    <SimpleGrid columns={8}>
+    <SimpleGrid
+      columns={{
+        sm: 1,
+        md: 2,
+        lg: 4,
+        xl: 6,
+        "2xl": 8,
+      }}
+      gap={4}
+    >
       {data?.results.map((movie) => {
         return (
           <GridItem>
