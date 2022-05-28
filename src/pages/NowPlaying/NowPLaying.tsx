@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Flex, Spinner } from "@chakra-ui/react";
 import useFetch from "use-http";
 import { GetNowPlayingResponse } from "../../types/global";
-import { Box, Image, SimpleGrid, GridItem } from "@chakra-ui/react";
+import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import MovieCard from "../../components/MovieCard";
 
 const NowPlaying = () => {
@@ -33,7 +33,7 @@ const NowPlaying = () => {
       {data?.results.map((movie) => {
         return (
           <GridItem>
-            <MovieCard movie={movie} />
+            <MovieCard movie={movie} isFavorite={false} />
           </GridItem>
         );
       })}

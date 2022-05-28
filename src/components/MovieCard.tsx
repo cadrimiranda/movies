@@ -1,15 +1,38 @@
 import { MoviePlayingResponse } from "../types/global";
 import { StarIcon } from "@chakra-ui/icons";
-import { Box, Image, Flex } from "@chakra-ui/react";
+import { Box, Image, Flex, Button } from "@chakra-ui/react";
 import useGetMovieImage from "../hooks/useGetMovieImage";
 
-const MovieCard = ({ movie }: { movie: MoviePlayingResponse }) => {
+const MovieCard = ({
+  movie,
+  isFavorite,
+}: {
+  movie: MoviePlayingResponse;
+  isFavorite?: boolean;
+}) => {
   const { popularPoster } = useGetMovieImage(movie.id);
 
   const normalize = ((movie.vote_average - 1) / (10 - 1)) * 5;
 
   return (
-    <Box cursor="pointer" borderColor="red" height="400px" borderWidth={1}>
+    <Box position="relative" cursor="pointer" height="400px">
+      <Button
+        position="absolute"
+        top={0}
+        right={10}
+        backgroundColor="transparent"
+        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+        _hover={{
+          transform: "scale(1.2)",
+        }}
+      >
+        <StarIcon
+          fontSize="larger"
+          color={isFavorite ? "yellow.300" : "transparent"}
+          strokeWidth={isFavorite ? "current" : "2"}
+          stroke={isFavorite ? "current" : "yellow.300"}
+        />
+      </Button>
       <Flex align="center" justify="center">
         <Image
           height="300px"
