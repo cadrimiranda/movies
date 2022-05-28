@@ -1,9 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Flex, Spinner } from "@chakra-ui/react";
 import useFetch from "use-http";
-import { GetNowPlayingResponse } from "../../types/global";
+import {
+  GetNowPlayingResponse,
+  MoviePlayingResponse,
+} from "../../types/global";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import MovieCard from "../../components/MovieCard";
+import MovieDetails, { ModalRelf } from "../../components/MovieDetails";
 
 const NowPlaying = () => {
   const {
@@ -11,6 +15,8 @@ const NowPlaying = () => {
     data,
     loading,
   } = useFetch<GetNowPlayingResponse>("/movie/now_playing?language=en-US");
+  const [movie, setMovie] = useState<MoviePlayingResponse | null>(null);
+  const refModal = useRef<ModalRelf>(null);
 
   useEffect(() => {
     getNowPlaying();
@@ -33,10 +39,22 @@ const NowPlaying = () => {
       {data?.results.map((movie) => {
         return (
           <GridItem>
-            <MovieCard movie={movie} isFavorite={false} />
+            <MovieCard
+              handleClickMovie={(_movie) => {
+                setMovie(_movie);
+                refModal.current?.onOpenModal();
+              }}
+              movie={movie}
+              isFavorite={false}
+            />
           </GridItem>
         );
       })}
+      <MovieDetails
+        ref={refModal}
+        movie={movie}
+        handleCloseModal={() => setMovie(null)}
+      />
     </SimpleGrid>
   );
 };

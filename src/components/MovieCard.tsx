@@ -3,19 +3,24 @@ import { StarIcon } from "@chakra-ui/icons";
 import { Box, Image, Flex, Button } from "@chakra-ui/react";
 import useGetMovieImage from "../hooks/useGetMovieImage";
 
-const MovieCard = ({
-  movie,
-  isFavorite,
-}: {
+type MovieCardTypes = {
   movie: MoviePlayingResponse;
   isFavorite?: boolean;
-}) => {
+  handleClickMovie: (movie: MoviePlayingResponse) => void;
+};
+
+const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {
   const { popularPoster } = useGetMovieImage(movie.id);
 
   const normalize = ((movie.vote_average - 1) / (10 - 1)) * 5;
 
   return (
-    <Box position="relative" cursor="pointer" height="400px">
+    <Box
+      onClick={() => handleClickMovie(movie)}
+      position="relative"
+      cursor="pointer"
+      height="400px"
+    >
       <Button
         position="absolute"
         top={0}
