@@ -26,7 +26,7 @@ const NowPlaying = () => {
         md: 2,
         lg: 4,
         xl: 6,
-        "2xl": 8,
+        "2xl": 6,
       }}
       gap={4}
     >
