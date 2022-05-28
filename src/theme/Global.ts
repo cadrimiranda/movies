@@ -3,7 +3,6 @@ export default {
     "html,body": {
       MozOsxFontSmoothing: "grayscale",
       WebkitFontSmoothing: "antialiased",
-      minWidth: "290px",
     },
     "body::-webkit-scrollbar,html::-webkit-scrollbar,div::-webkit-scrollbar": {
       width: "8px",

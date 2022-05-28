@@ -8,7 +8,14 @@ import { theme } from "./theme";
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <Provider url={import.meta.env.VITE_AUTH_KEY as string}>
+      <Provider
+        options={{
+          headers: {
+            authorization: `Bearer ${import.meta.env.VITE_AUTH_KEY as string}`,
+          },
+        }}
+        url={"https://api.themoviedb.org/3"}
+      >
         <Dashboard />
       </Provider>
     </ChakraProvider>
