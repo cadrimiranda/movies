@@ -1,14 +1,13 @@
 import { MoviePlayingResponse } from "../types/global";
 import { Box, Image } from "@chakra-ui/react";
+import useGetMovieImage from "../hooks/useGetMovieImage";
 
 const MovieCard = ({ movie }: { movie: MoviePlayingResponse }) => {
+  const { popularPoster } = useGetMovieImage(movie.id);
+
   return (
     <Box>
-      <Image
-        loading="lazy"
-        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-        alt={movie.title}
-      />
+      <Image loading="lazy" src={popularPoster} alt={movie.title} />
     </Box>
   );
 };
