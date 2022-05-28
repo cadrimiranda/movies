@@ -2,6 +2,7 @@ import { MoviePlayingResponse } from "../types/global";
 import { StarIcon } from "@chakra-ui/icons";
 import { Box, Image, Flex, Button } from "@chakra-ui/react";
 import useGetMovieImage from "../hooks/useGetMovieImage";
+import Rating from "./Rating";
 
 type MovieCardTypes = {
   movie: MoviePlayingResponse;
@@ -11,8 +12,6 @@ type MovieCardTypes = {
 
 const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {
   const { popularPoster } = useGetMovieImage(movie.id);
-
-  const normalize = ((movie.vote_average - 0) / (10 - 0)) * 5;
 
   return (
     <Box
@@ -48,28 +47,17 @@ const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {
           title={movie.overview}
         />
       </Flex>
+      <Rating
+        rate={movie.vote_average}
+        mt={4}
+        fontSize="xs"
+        text={
+          <>
+            ({movie.vote_average}) &bull; {movie.vote_count} reviews
+          </>
+        }
+      />
 
-      <Box display="flex" mt={4} alignItems="center">
-        {Array(5)
-          .fill("")
-          .map((_, i) => (
-            <StarIcon
-              fontSize="xs"
-              key={i}
-              color={i < normalize ? "yellow.300" : "gray.300"}
-            />
-          ))}
-        <Box
-          color="gray.500"
-          fontWeight="semibold"
-          letterSpacing="wide"
-          fontSize="xs"
-          textTransform="uppercase"
-          ml="2"
-        >
-          ({movie.vote_average}) &bull; {movie.vote_count} reviews
-        </Box>
-      </Box>
       <Flex align="flex-start" direction="column" justify="flex-start">
         <Box display="flex" alignItems="baseline">
           <Box

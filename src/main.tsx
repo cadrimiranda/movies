@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "use-http";
 import { ChakraProvider } from "@chakra-ui/react";
-import Dashboard from "./Dashboard";
+import Dashboard from "./pages/Dashboard";
 import { theme } from "./theme";
 
 ReactDOM.render(

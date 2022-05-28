@@ -1,5 +1,5 @@
-import { TabPanels } from "./components";
-import NowPlaying from "./pages/NowPlaying/NowPLaying";
+import { TabPanels } from "../components";
+import NowPlaying from "./NowPlaying/NowPLaying";
 
 const Dashboard = () => {
   return (

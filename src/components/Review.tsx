@@ -1,10 +1,8 @@
 import { AuthorDetails } from "../hooks/useGetMoviewReviews";
-import { StarIcon } from "@chakra-ui/icons";
 import { Text, Flex, Box, Divider } from "@chakra-ui/react";
+import Rating from "./Rating";
 
 const Review = ({ author }: { author: AuthorDetails }) => {
-  const normalize = ((author.author_details.rating || 0 - 0) / (10 - 0)) * 5;
-
   const getDate = (date: string) => new Date(date).toLocaleDateString();
 
   return (
@@ -17,26 +15,8 @@ const Review = ({ author }: { author: AuthorDetails }) => {
           &bull; {author.author_details.username}
         </Text>
       </Box>
-      <Box display="flex" alignItems="center">
-        {Array(5)
-          .fill("")
-          .map((_, i) => (
-            <StarIcon
-              fontSize="xs"
-              key={i}
-              color={i < normalize ? "yellow.300" : "gray.300"}
-            />
-          ))}
-        <Box
-          color="gray.500"
-          letterSpacing="wide"
-          fontSize="xs"
-          textTransform="uppercase"
-          ml="2"
-        >
-          ({author.author_details.rating || 1})
-        </Box>
-      </Box>
+      <Rating rate={author.author_details.rating || 0} fontSize="xs" />
+
       <Text
         mb={1}
         color="gray.500"

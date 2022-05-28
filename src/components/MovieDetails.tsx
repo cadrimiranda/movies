@@ -11,6 +11,7 @@ import { StarIcon } from "@chakra-ui/icons";
 import { MoviePlayingResponse } from "../types/global";
 import useGetMoviewReview from "../hooks/useGetMoviewReviews";
 import Review from "./Review";
+import Rating from "./Rating";
 
 type MovieDetailsType = {
   movie: MoviePlayingResponse;
@@ -51,26 +52,16 @@ const MovieDetails = ({ movie }: MovieDetailsType) => {
             {movie.title}
           </Text>
 
-          <Box display="flex" mb={2} alignItems="center">
-            {Array(5)
-              .fill("")
-              .map((_, i) => (
-                <StarIcon
-                  fontSize="l"
-                  key={i}
-                  color={i < normalize ? "yellow.300" : "gray.300"}
-                />
-              ))}
-            <Text
-              color="gray.500"
-              letterSpacing="wide"
-              fontSize="l"
-              textTransform="uppercase"
-              ml="2"
-            >
-              ({movie.vote_average}) &bull; {movie.vote_count} reviews
-            </Text>
-          </Box>
+          <Rating
+            text={
+              <>
+                ({movie.vote_average}) &bull; {movie.vote_count} reviews
+              </>
+            }
+            rate={movie.vote_average}
+            fontSize="l"
+          />
+
           <Text
             mt={1}
             textAlign="justify"
