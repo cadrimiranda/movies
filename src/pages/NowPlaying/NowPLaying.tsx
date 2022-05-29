@@ -1,29 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import { Flex, Spinner } from "@chakra-ui/react";
-import useFetch from "use-http";
-import { MoviesResponse, MovieResponse } from "../../types/global";
+import { useRef, useState } from "react";
+import { Spinner } from "@chakra-ui/react";
+import { MovieResponse } from "../../types/global";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import MovieCard from "../../components/MovieCard";
 import MovieDetails, { ModalRelf } from "../../components/ModalMovieDetails";
 import { useMainContext } from "../../contexts/MainContext";
+import useGetNowPlaying from "../../hooks/useGetNowPlaying";
 
 const NowPlaying = () => {
-  const {
-    get: getNowPlaying,
-    data,
-    loading,
-  } = useFetch<MoviesResponse>("/movie/now_playing?language=en-US");
   const { setFavorites, removeFavorite } = useMainContext();
   const [movie, setMovie] = useState<MovieResponse | null>(null);
   const refModal = useRef<ModalRelf>(null);
+  const { movies } = useGetNowPlaying();
 
-  useEffect(() => {
-    getNowPlaying();
-  }, []);
-
-  if (loading) {
-    return <Spinner />;
-  }
   return (
     <SimpleGrid
       columns={{
@@ -35,7 +24,7 @@ const NowPlaying = () => {
       }}
       gap={4}
     >
-      {data?.results.map((movie) => {
+      {movies.map((movie) => {
         return (
           <GridItem>
             <MovieCard
