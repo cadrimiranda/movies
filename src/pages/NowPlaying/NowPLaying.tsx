@@ -13,7 +13,7 @@ const NowPlaying = () => {
     data,
     loading,
   } = useFetch<MoviesResponse>("/movie/now_playing?language=en-US");
-  const { setFavorites } = useMainContext();
+  const { setFavorites, removeFavorite } = useMainContext();
   const [movie, setMovie] = useState<MovieResponse | null>(null);
   const refModal = useRef<ModalRelf>(null);
 
@@ -39,7 +39,13 @@ const NowPlaying = () => {
         return (
           <GridItem>
             <MovieCard
-              handleClickFavorite={setFavorites}
+              handleClickFavorite={(_movie, isFavorite) => {
+                if (isFavorite) {
+                  removeFavorite(_movie);
+                } else {
+                  setFavorites(_movie);
+                }
+              }}
               handleClickMovie={(_movie) => {
                 setMovie(_movie);
                 refModal.current?.onOpenModal();

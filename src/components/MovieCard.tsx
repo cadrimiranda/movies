@@ -10,7 +10,7 @@ type MovieCardTypes = {
   movie: MovieResponse;
   isFavorite?: boolean;
   handleClickMovie: FnMovie;
-  handleClickFavorite: FnMovie;
+  handleClickFavorite: (movie: MovieResponse, isFavorite: boolean) => void;
 };
 
 const MovieCard = ({
@@ -55,7 +55,7 @@ const MovieCard = ({
         }}
         onClick={(event: any) => {
           event && event.stopPropagation();
-          handleClickFavorite(movie);
+          handleClickFavorite(movie, AmIFavorite);
         }}
       >
         <StarIcon
