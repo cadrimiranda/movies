@@ -4,6 +4,7 @@ import { Provider } from "use-http";
 import { ChakraProvider } from "@chakra-ui/react";
 import Dashboard from "./pages/Dashboard";
 import { theme } from "./theme";
+import MainContextProvider from "./contexts/MainContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,7 +17,9 @@ ReactDOM.render(
         }}
         url={"https://api.themoviedb.org/3"}
       >
-        <Dashboard />
+        <MainContextProvider>
+          <Dashboard />
+        </MainContextProvider>
       </Provider>
     </ChakraProvider>
   </React.StrictMode>,
