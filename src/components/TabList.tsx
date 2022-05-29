@@ -6,11 +6,17 @@ const Panels = ({
 }: {
   children: ReactElement<{ key: string; [key: string]: any }>[] | ReactElement;
 }) => {
+  const tabProps = {
+    _selected: {
+      color: "#c8c8c8",
+    },
+    color: "#737373",
+  };
   return (
     <Tabs>
-      <TabList>
-        <Tab>Now in the theathers</Tab>
-        <Tab>Favorites</Tab>
+      <TabList backgroundColor="blackAlpha.500">
+        <Tab {...tabProps}>Now in the theathers</Tab>
+        <Tab {...tabProps}>Favorites</Tab>
       </TabList>
 
       <TabPanels>
