@@ -8,26 +8,34 @@ const Review = ({ author }: { author: AuthorDetails }) => {
   return (
     <Flex direction="column">
       <Box display="flex">
-        <Text as="h3" fontSize="l" fontWeight="bold">
+        <Text as="h3" fontSize={{ base: "md", xl: "l" }} fontWeight="bold">
           {author.author}
         </Text>
-        <Text ml={2} fontSize="l" fontWeight="bold">
+        <Text ml={2} fontSize={{ base: "md", xl: "l" }} fontWeight="bold">
           &bull; {author.author_details.username}
         </Text>
       </Box>
-      <Rating rate={author.author_details.rating || 0} fontSize="xs" />
+      <Rating
+        rate={author.author_details.rating || 0}
+        fontSize={{ base: "xs", xl: "l" }}
+      />
 
       <Text
         mb={1}
         color="gray.500"
-        fontSize="smaller"
+        fontSize={{ base: "xs", xl: "smaller" }}
         textAlign="justify"
         as="span"
       >
         created: {getDate(author.created_at)} &bull; updated:{" "}
         {getDate(author.created_at)}
       </Text>
-      <Text mb={3} textAlign="justify" as="p">
+      <Text
+        mb={3}
+        textAlign="justify"
+        fontSize={{ base: "xs", xl: "smaller" }}
+        as="p"
+      >
         {author.content}
       </Text>
 

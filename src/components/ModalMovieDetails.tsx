@@ -1,5 +1,5 @@
 import {
-  Box,
+  Text,
   Modal,
   Spinner,
   ModalOverlay,
@@ -27,7 +27,6 @@ const ModalMovieDetails = forwardRef(
     const [visible, setVisible] = useState<boolean>(false);
 
     const onOpenModal = () => {
-      console.log("open modal");
       setVisible(true);
     };
 
@@ -44,9 +43,15 @@ const ModalMovieDetails = forwardRef(
     return (
       <Modal size="6xl" isCentered isOpen={visible} onClose={onCloseModal}>
         <ModalOverlay />
-        <ModalContent width="75vw">
+        <ModalContent>
           <ModalHeader>
-            {movie ? <Box>More details about {movie.title}</Box> : <Spinner />}
+            {movie ? (
+              <Text fontSize={{ base: "md", xl: "2xl" }}>
+                More details about {movie.title}
+              </Text>
+            ) : (
+              <Spinner />
+            )}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>

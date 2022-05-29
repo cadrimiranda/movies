@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { Spinner } from "@chakra-ui/react";
 import { MovieResponse } from "../../types/global";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import MovieCard from "../../components/MovieCard";
