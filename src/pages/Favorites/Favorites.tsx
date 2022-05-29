@@ -30,7 +30,7 @@ const FavoriteMovies = () => {
                 refModal.current?.onOpenModal();
               }}
               movie={movie}
-              isFavorite={false}
+              isFavorite
             />
           </GridItem>
         );

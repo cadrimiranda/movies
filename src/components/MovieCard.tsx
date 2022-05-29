@@ -3,6 +3,8 @@ import { StarIcon } from "@chakra-ui/icons";
 import { Box, Image, Flex, Button } from "@chakra-ui/react";
 import useGetMovieImage from "../hooks/useGetMovieImage";
 import Rating from "./Rating";
+import { useMainContext } from "../contexts/MainContext";
+import { useMemo } from "react";
 
 type MovieCardTypes = {
   movie: MovieResponse;
@@ -12,6 +14,14 @@ type MovieCardTypes = {
 
 const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {
   const { popularPoster } = useGetMovieImage(movie.id);
+  const { favorites } = useMainContext();
+
+  const AmIFavorite = useMemo(() => {
+    if (isFavorite) {
+      return isFavorite;
+    }
+    return favorites.some((m) => m.id === movie.id);
+  }, [favorites, isFavorite]);
 
   return (
     <Box
@@ -25,16 +35,16 @@ const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {
         top={0}
         right={10}
         backgroundColor="transparent"
-        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+        title={AmIFavorite ? "Remove from favorites" : "Add to favorites"}
         _hover={{
           transform: "scale(1.2)",
         }}
       >
         <StarIcon
           fontSize="larger"
-          color={isFavorite ? "yellow.300" : "transparent"}
-          strokeWidth={isFavorite ? "current" : "2"}
-          stroke={isFavorite ? "current" : "yellow.300"}
+          color={AmIFavorite ? "yellow.300" : "transparent"}
+          strokeWidth={AmIFavorite ? "current" : "2"}
+          stroke={AmIFavorite ? "current" : "yellow.300"}
         />
       </Button>
       <Flex align="center" justify="center">
