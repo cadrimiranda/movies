@@ -7,11 +7,11 @@ interface IRating extends Omit<HTMLChakraProps<"div">, "text"> {
 }
 
 const Rating = ({ rate, fontSize, text, ...rest }: IRating) => {
-  const normalize = ((rate - 0) / (10 - 0)) * 5;
+  const normalize = ((rate - 0) / (10 - 0)) * 10;
 
   return (
     <Box display="flex" alignItems="center" {...rest}>
-      {Array(5)
+      {Array(10)
         .fill("")
         .map((_, i) => (
           <StarIcon
