@@ -8,13 +8,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
-import { MoviePlayingResponse } from "../types/global";
+import { MovieResponse } from "../types/global";
 import useGetMoviewReview from "../hooks/useGetMoviewReviews";
 import Review from "./Review";
 import Rating from "./Rating";
 
 type MovieDetailsType = {
-  movie: MoviePlayingResponse;
+  movie: MovieResponse;
 };
 
 const MovieDetails = ({ movie }: MovieDetailsType) => {

@@ -1,13 +1,13 @@
-import { MoviePlayingResponse } from "../types/global";
+import { MovieResponse } from "../types/global";
 import { StarIcon } from "@chakra-ui/icons";
 import { Box, Image, Flex, Button } from "@chakra-ui/react";
 import useGetMovieImage from "../hooks/useGetMovieImage";
 import Rating from "./Rating";
 
 type MovieCardTypes = {
-  movie: MoviePlayingResponse;
+  movie: MovieResponse;
   isFavorite?: boolean;
-  handleClickMovie: (movie: MoviePlayingResponse) => void;
+  handleClickMovie: (movie: MovieResponse) => void;
 };
 
 const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {

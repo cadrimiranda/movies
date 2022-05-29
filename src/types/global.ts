@@ -1,4 +1,4 @@
-export type MoviePlayingResponse = {
+export type MovieResponse = {
   adult: false;
   backdrop_path: string;
   genre_ids: number[];
@@ -15,13 +15,13 @@ export type MoviePlayingResponse = {
   vote_count: number;
 };
 
-export type GetNowPlayingResponse = {
+export type MoviesResponse = {
   dates: {
     maximum: string;
     minimum: string;
   };
   page: number;
-  results: MoviePlayingResponse[];
+  results: MovieResponse[];
   total_pages: number;
   total_results: number;
 };

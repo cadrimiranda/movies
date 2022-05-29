@@ -1,9 +1,9 @@
 import { createContext, FC, useContext, useState } from "react";
-import { MoviePlayingResponse } from "../types/global";
+import { MovieResponse } from "../types/global";
 
 type ContextValues = {
-  favorites: MoviePlayingResponse[];
-  setFavorites: (movie: MoviePlayingResponse) => void;
+  favorites: MovieResponse[];
+  setFavorites: (movie: MovieResponse) => void;
 };
 
 const MainContext = createContext<ContextValues>({} as ContextValues);
@@ -11,9 +11,9 @@ const MainContext = createContext<ContextValues>({} as ContextValues);
 const useMainContext = () => useContext(MainContext);
 
 const MainContextProvider: FC = ({ children }) => {
-  const [favorites, setFavorites] = useState<MoviePlayingResponse[]>([]);
+  const [favorites, setFavorites] = useState<MovieResponse[]>([]);
 
-  const handleSetFavorites = (movie: MoviePlayingResponse) => {
+  const handleSetFavorites = (movie: MovieResponse) => {
     const _favorites = [movie, ...favorites];
     setFavorites(_favorites);
   };

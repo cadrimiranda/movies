@@ -9,11 +9,11 @@ import {
   ModalBody,
 } from "@chakra-ui/react";
 import { forwardRef, useImperativeHandle, useState, Ref } from "react";
-import { MoviePlayingResponse } from "../types/global";
+import { MovieResponse } from "../types/global";
 import MovieDetails from "./MovieDetails";
 
 type ModalMovieDetailsType = {
-  movie: MoviePlayingResponse | null;
+  movie: MovieResponse | null;
   handleCloseModal: () => void;
 };
 
