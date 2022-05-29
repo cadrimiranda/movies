@@ -25,3 +25,5 @@ export type MoviesResponse = {
   total_pages: number;
   total_results: number;
 };
+
+export type FnMovie = (movie: MovieResponse) => void;

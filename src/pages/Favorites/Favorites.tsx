@@ -6,7 +6,7 @@ import MovieDetails, { ModalRelf } from "../../components/ModalMovieDetails";
 import { useMainContext } from "../../contexts/MainContext";
 
 const FavoriteMovies = () => {
-  const { favorites, setFavorites } = useMainContext();
+  const { favorites, removeFavorite } = useMainContext();
   const [movie, setMovie] = useState<MovieResponse | null>(null);
   const refModal = useRef<ModalRelf>(null);
 
@@ -25,6 +25,7 @@ const FavoriteMovies = () => {
         return (
           <GridItem>
             <MovieCard
+              handleClickFavorite={removeFavorite}
               handleClickMovie={(_movie) => {
                 setMovie(_movie);
                 refModal.current?.onOpenModal();

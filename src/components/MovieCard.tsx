@@ -1,4 +1,4 @@
-import { MovieResponse } from "../types/global";
+import { FnMovie, MovieResponse } from "../types/global";
 import { StarIcon } from "@chakra-ui/icons";
 import { Box, Image, Flex, Button } from "@chakra-ui/react";
 import useGetMovieImage from "../hooks/useGetMovieImage";
@@ -9,10 +9,16 @@ import { useMemo } from "react";
 type MovieCardTypes = {
   movie: MovieResponse;
   isFavorite?: boolean;
-  handleClickMovie: (movie: MovieResponse) => void;
+  handleClickMovie: FnMovie;
+  handleClickFavorite: FnMovie;
 };
 
-const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {
+const MovieCard = ({
+  movie,
+  isFavorite,
+  handleClickMovie,
+  handleClickFavorite,
+}: MovieCardTypes) => {
   const { popularPoster } = useGetMovieImage(movie.id);
   const { favorites } = useMainContext();
 
@@ -38,6 +44,10 @@ const MovieCard = ({ movie, isFavorite, handleClickMovie }: MovieCardTypes) => {
         title={AmIFavorite ? "Remove from favorites" : "Add to favorites"}
         _hover={{
           transform: "scale(1.2)",
+        }}
+        onClick={(event: any) => {
+          event && event.stopPropagation();
+          handleClickFavorite(movie);
         }}
       >
         <StarIcon

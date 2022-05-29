@@ -1,10 +1,11 @@
 import { createContext, FC, useContext, useEffect, useState } from "react";
 import useCreateFakeFavorites from "../hooks/useCreateFakeFavorites";
-import { MovieResponse } from "../types/global";
+import { FnMovie, MovieResponse } from "../types/global";
 
 type ContextValues = {
   favorites: MovieResponse[];
-  setFavorites: (movie: MovieResponse) => void;
+  setFavorites: FnMovie;
+  removeFavorite: FnMovie;
 };
 
 const MainContext = createContext<ContextValues>({} as ContextValues);
@@ -26,9 +27,14 @@ const MainContextProvider: FC = ({ children }) => {
     setFavorites(_favorites);
   };
 
+  const removeFavorite = (movie: MovieResponse) => {
+    const _favorites = favorites.filter((m) => m.id !== movie.id);
+    setFavorites(_favorites);
+  };
+
   return (
     <MainContext.Provider
-      value={{ favorites, setFavorites: handleSetFavorites }}
+      value={{ favorites, setFavorites: handleSetFavorites, removeFavorite }}
     >
       {children}
     </MainContext.Provider>

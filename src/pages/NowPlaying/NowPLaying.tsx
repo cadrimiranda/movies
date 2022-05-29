@@ -5,6 +5,7 @@ import { MoviesResponse, MovieResponse } from "../../types/global";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import MovieCard from "../../components/MovieCard";
 import MovieDetails, { ModalRelf } from "../../components/ModalMovieDetails";
+import { useMainContext } from "../../contexts/MainContext";
 
 const NowPlaying = () => {
   const {
@@ -12,6 +13,7 @@ const NowPlaying = () => {
     data,
     loading,
   } = useFetch<MoviesResponse>("/movie/now_playing?language=en-US");
+  const { setFavorites } = useMainContext();
   const [movie, setMovie] = useState<MovieResponse | null>(null);
   const refModal = useRef<ModalRelf>(null);
 
@@ -37,6 +39,7 @@ const NowPlaying = () => {
         return (
           <GridItem>
             <MovieCard
+              handleClickFavorite={setFavorites}
               handleClickMovie={(_movie) => {
                 setMovie(_movie);
                 refModal.current?.onOpenModal();
