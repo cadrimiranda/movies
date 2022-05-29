@@ -31,15 +31,23 @@ const MovieCard = ({
 
   return (
     <Box
+      p={3}
+      borderRadius={4}
+      border="1px solid rgba(0 ,0 ,0 ,0.6)"
+      backgroundColor="#32383e"
+      color="#c8c8c8"
       onClick={() => handleClickMovie({ ...movie, poster_path: popularPoster })}
       position="relative"
       cursor="pointer"
       height="400px"
+      _hover={{
+        backgroundColor: "#3e444c",
+      }}
     >
       <Button
         position="absolute"
         top={0}
-        right={10}
+        right={0}
         backgroundColor="transparent"
         title={AmIFavorite ? "Remove from favorites" : "Add to favorites"}
         _hover={{

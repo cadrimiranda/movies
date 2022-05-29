@@ -3,6 +3,7 @@ export default {
     "html,body": {
       MozOsxFontSmoothing: "grayscale",
       WebkitFontSmoothing: "antialiased",
+      backgroundColor: "#272b30",
     },
     "body::-webkit-scrollbar,html::-webkit-scrollbar,div::-webkit-scrollbar": {
       width: "8px",
