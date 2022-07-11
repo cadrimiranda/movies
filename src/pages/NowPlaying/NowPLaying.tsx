@@ -10,7 +10,7 @@ const NowPlaying = () => {
   const { setFavorites, removeFavorite } = useMainContext();
   const [movie, setMovie] = useState<MovieResponse | null>(null);
   const refModal = useRef<ModalRelf>(null);
-  const { movies } = useGetNowPlaying();
+  const { movies, isLoading } = useGetNowPlaying();
 
   return (
     <SimpleGrid
@@ -44,6 +44,15 @@ const NowPlaying = () => {
           </GridItem>
         );
       })}
+      {isLoading &&
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
+          <MovieCard
+            handleClickFavorite={() => {}}
+            handleClickMovie={() => {}}
+            isFavorite={false}
+            isLoading
+          />
+        ))}
       <MovieDetails
         ref={refModal}
         movie={movie}

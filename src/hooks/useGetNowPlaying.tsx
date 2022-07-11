@@ -6,7 +6,7 @@ const useGetNowPlaying = () => {
   const refPage = useRef(1);
   const refTotalPages = useRef<number>(null);
   const [movies, setMovies] = useState<MovieResponse[]>([]);
-  const { get, data, loading } = useFetch<MoviesResponse>(
+  const { get, loading } = useFetch<MoviesResponse>(
     "/movie/now_playing?language=en-US"
   );
 
@@ -54,7 +54,7 @@ const useGetNowPlaying = () => {
 
   return {
     movies,
-    isLoadingFavorites: loading,
+    isLoading: loading,
   };
 };
 
